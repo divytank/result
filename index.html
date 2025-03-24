@@ -3,36 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Results</title>
+    <title>My Exam Result</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
-            background: #121212;
+            background: #1E1E1E;
             color: white;
             animation: fadeIn 1.5s ease-in-out;
         }
         h1 {
             font-size: 2.5em;
-            animation: slideDown 1.5s ease-in-out;
+            animation: slideDown 1s ease-in-out;
         }
-        input {
-            padding: 10px;
+        .whatsapp-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
             font-size: 18px;
-            width: 250px;
-            margin-top: 20px;
-            border-radius: 5px;
-            border: none;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: #25D366;
+        }
+        .whatsapp-link img {
+            width: 30px;
+            height: 30px;
+        }
+        #userName {
+            font-size: 1.5em;
+            font-weight: bold;
             background: #333;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 60%;
+            background: #222;
             color: white;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 15px;
             text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+        }
+        #resultTable.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         .button {
             padding: 12px 25px;
-            font-size: 20px;
-            background: #007BFF;
-            color: white;
+            font-size: 18px;
+            background: #FFD700;
+            color: black;
             text-decoration: none;
             border-radius: 8px;
             display: inline-block;
@@ -41,7 +75,7 @@
         }
         .button:hover {
             transform: scale(1.1);
-            background: #0056b3;
+            background: #FFC107;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -54,14 +88,54 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to My Exam Result</h1>
-    <input type="text" id="name" placeholder="Enter your name" />
-    <br>
-    <a href="result.html" class="button" onclick="saveName()">View My Result</a>
+    <a href="https://wa.me/9825537505" class="whatsapp-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        Say Congrats on WhatsApp!
+    </a>
+
+    <h1>My Exam Results</h1>
+    <p id="userName"></p>
+
+    <button onclick="showResult()" class="button">Click to Reveal My Marks</button>
+
+    <table id="resultTable">
+        <tr>
+            <th>Subject</th>
+            <th>Marks Obtained</th>
+            <th>Total Marks</th>
+        </tr>
+        <tr><td>Standard Maths</td><td>92</td><td>100</td></tr>
+        <tr><td>Gujarati</td><td>85</td><td>100</td></tr>
+        <tr><td>English</td><td>88</td><td>100</td></tr>
+        <tr><td>Sanskrit</td><td>90</td><td>100</td></tr>
+        <tr><td>Science</td><td>94</td><td>100</td></tr>
+        <tr><td>Social Science</td><td>87</td><td>100</td></tr>
+        <tr>
+            <th>Total</th>
+            <th>536</th>
+            <th>600</th>
+        </tr>
+        <tr>
+            <th>Percentage</th>
+            <th colspan="2">89.33%</th>
+        </tr>
+    </table>
+
+    <a href="index.html" class="button">Back to Home</a>
+    <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
 
     <script>
-        function saveName() {
-            localStorage.setItem("userName", document.getElementById('name').value);
+        function showResult() {
+            document.getElementById('resultTable').classList.add('show');
+        }
+
+        function congratulate() {
+            alert("Congratulations Divy🔥! 🎉");
+        }
+
+        window.onload = function () {
+            let name = localStorage.getItem("userName") || "Student";
+            document.getElementById("userName").innerText = "Hello, " + name + "!";
         }
     </script>
 </body>
