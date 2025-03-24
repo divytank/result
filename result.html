@@ -108,6 +108,7 @@
             animation-delay: calc(0.2s * var(--delay));
         }
 
+        /* Fixed Button Styling */
         .button {
             padding: 12px 20px;
             font-size: 16px;
@@ -117,12 +118,19 @@
             border-radius: 20px;
             display: inline-block;
             margin-top: 15px;
-            transition: transform 0.3s ease-in-out, background 0.3s;
+            transition: transform 0.2s ease-in-out, background 0.3s;
+            border: none; /* Ensure no border appears on focus */
+            outline: none; /* Remove focus outline */
+            cursor: pointer;
         }
 
         .button:hover {
-            transform: scale(1.1) rotate(3deg);
+            transform: scale(1.05); /* Slight scale effect without rotation */
             background: #FFC107;
+        }
+
+        .button:active {
+            transform: scale(1); /* Prevent button from shifting when clicked */
         }
 
         .seat-number {
