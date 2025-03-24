@@ -16,6 +16,59 @@
             margin: 0;
             padding: 20px;
         }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 50, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+            color: white;
+            font-size: 20px;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .loader {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-top: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Content initially hidden */
+        .content {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Fade-in effect */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Slide up effect */
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
         .container {
             display: flex;
             flex-direction: column;
@@ -28,16 +81,20 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
         }
+
         .result-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
+
         .result-table th, .result-table td {
             border: 1px solid white;
             padding: 10px;
             font-size: 18px;
+            opacity: 0;
         }
+
         .button {
             padding: 12px 20px;
             font-size: 16px;
@@ -48,11 +105,14 @@
             display: inline-block;
             margin-top: 15px;
             transition: transform 0.3s ease-in-out, background 0.3s;
+            opacity: 0;
         }
+
         .button:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(3deg);
             background: #FFC107;
         }
+
         .whatsapp-link {
             display: flex;
             align-items: center;
@@ -62,16 +122,14 @@
             color: #25D366;
             margin-bottom: 15px;
             font-weight: bold;
+            opacity: 0;
         }
+
         .whatsapp-link img {
             width: 30px;
             height: 30px;
         }
-        .seat-number {
-            font-size: 16px;
-            margin-top: 20px;
-            font-weight: bold;
-        }
+
         .summary {
             margin-top: 20px;
             display: flex;
@@ -83,47 +141,86 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             font-weight: bold;
+            opacity: 0;
+        }
+
+        .seat-number {
+            font-size: 16px;
+            margin-top: 20px;
+            font-weight: bold;
+            opacity: 0;
         }
     </style>
 </head>
-<body>
-    <a href="https://wa.me/9825537505" class="whatsapp-link" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-        Say Congrats on WhatsApp!
-    </a>
-
-    <h1>My Exam Results</h1>
-
-    <div class="container">
-        <table class="result-table">
-            <tr>
-                <th>Subject</th>
-                <th>Marks</th>
-            </tr>
-            <tr><td>Standard Maths</td><td>90</td></tr>
-            <tr><td>Gujarati</td><td>85</td></tr>
-            <tr><td>English</td><td>88</td></tr>
-            <tr><td>Sanskrit</td><td>92</td></tr>
-            <tr><td>Science</td><td>89</td></tr>
-            <tr><td>Social Science</td><td>87</td></tr>
-            <tr><th>Total Marks</th><th>531</th></tr>
-        </table>
-
-        <div class="summary">
-            <div>Total Percentage: <span>88.5%</span></div>
-            <div>Total Percentile: <span>97.0</span></div>
-        </div>
-
-        <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
-        <a href="index.html" class="button">Back to Home</a>
+<body onload="showContent()">
+    
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        Loading your result...
+        <div class="loader"></div>
     </div>
 
-    <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
+    <!-- Main Content (Initially Hidden) -->
+    <div id="mainContent" class="content">
+        <a href="https://wa.me/9825537505" class="whatsapp-link" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+            Say Congrats on WhatsApp!
+        </a>
+
+        <h1>My Exam Results</h1>
+
+        <div class="container">
+            <table class="result-table">
+                <tr><th>Subject</th><th>Marks</th></tr>
+                <tr><td>Standard Maths</td><td>90</td></tr>
+                <tr><td>Gujarati</td><td>85</td></tr>
+                <tr><td>English</td><td>88</td></tr>
+                <tr><td>Sanskrit</td><td>92</td></tr>
+                <tr><td>Science</td><td>89</td></tr>
+                <tr><td>Social Science</td><td>87</td></tr>
+                <tr><th>Total Marks</th><th>531</th></tr>
+            </table>
+
+            <div class="summary">
+                <div>Total Percentage: <span>88.5%</span></div>
+                <div>Total Percentile: <span>97.0</span></div>
+            </div>
+
+            <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
+            <a href="index.html" class="button">Back to Home</a>
+        </div>
+
+        <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
+    </div>
 
     <script>
+        function showContent() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+
+                    // Start animations after loading screen disappears
+                    document.getElementById('mainContent').style.opacity = '1';
+                    document.getElementById('mainContent').style.animation = 'fadeIn 1s ease-in-out';
+                    
+                    document.querySelector('.container').style.animation = 'slideUp 1s ease-out';
+
+                    document.querySelectorAll('.result-table th, .result-table td, .button, .summary, .seat-number, .whatsapp-link').forEach((element, index) => {
+                        setTimeout(() => {
+                            element.style.opacity = '1';
+                            element.style.animation = 'fadeIn 1s ease-in-out';
+                        }, 300 * index);
+                    });
+
+                }, 500);
+            }, 2000);
+        }
+
         function congratulate() {
             alert("Congratulations Divy🔥! 🎉");
         }
     </script>
+
 </body>
 </html>
