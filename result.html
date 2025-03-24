@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Exam Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* No scrolling */
+            margin: 0;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .whatsapp-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: #25D366;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .whatsapp-link img {
+            width: 30px;
+            height: 30px;
+        }
+        .result-image {
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+        .show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .button {
+            padding: 12px 25px;
+            font-size: 18px;
+            background: #ff4b5c;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px; /* Rounded button */
+            display: inline-block;
+            margin-top: 15px;
+            transition: transform 0.3s ease-in-out, background 0.3s;
+        }
+        .button:hover {
+            transform: scale(1.1);
+            background: #ff616f;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://wa.me/9825537505" class="whatsapp-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        Say Congrats on WhatsApp!
+    </a>
+
+    <h1>My Exam Results</h1>
+
+    <button onclick="showImage()" class="button">Click to Reveal My Result</button>
+
+    <!-- Updated Image URL -->
+    <img id="resultImage" class="result-image" src="https://i.ibb.co/qMtqcZqG/Screenshot-2025-03-22-23-19-04-324-com-instagram-android.jpg" alt="Exam Result">
+
+    <a href="index.html" class="button">Back to Home</a>
+    <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
+
+    <script>
+        function showImage() {
+            document.getElementById('resultImage').classList.add('show');
+        }
+
+        function congratulate() {
+            alert("Congratulations Divy🔥! 🎉");
+        }
+    </script>
+</body>
+</html>
