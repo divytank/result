@@ -5,6 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Exam Result</title>
     <style>
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #4A90E2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            border-top: 6px solid white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Hide Loading Screen */
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Page Styles */
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -15,58 +55,13 @@
             align-items: center;
             margin: 0;
             padding: 20px;
-        }
-        
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 50, 0.8);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            z-index: 1000;
-            color: white;
-            font-size: 20px;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .loader {
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top: 5px solid white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin-top: 10px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Content initially hidden */
-        .content {
             opacity: 0;
-            transform: translateY(20px);
+            animation: fadeIn 1s ease-in-out forwards;
         }
 
-        /* Fade-in effect */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        /* Slide up effect */
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
 
         .container {
@@ -80,6 +75,14 @@
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards 1s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .result-table {
@@ -93,6 +96,16 @@
             padding: 10px;
             font-size: 18px;
             opacity: 0;
+            animation: fadeInTable 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeInTable {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .result-table tr:nth-child(n) {
+            animation-delay: calc(0.2s * var(--delay));
         }
 
         .button {
@@ -105,7 +118,6 @@
             display: inline-block;
             margin-top: 15px;
             transition: transform 0.3s ease-in-out, background 0.3s;
-            opacity: 0;
         }
 
         .button:hover {
@@ -113,21 +125,12 @@
             background: #FFC107;
         }
 
-        .whatsapp-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            text-decoration: none;
-            color: #25D366;
-            margin-bottom: 15px;
+        .seat-number {
+            font-size: 16px;
+            margin-top: 20px;
             font-weight: bold;
             opacity: 0;
-        }
-
-        .whatsapp-link img {
-            width: 30px;
-            height: 30px;
+            animation: fadeIn 1s ease-in-out forwards 1.5s;
         }
 
         .summary {
@@ -141,85 +144,72 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             font-weight: bold;
-            opacity: 0;
-        }
-
-        .seat-number {
-            font-size: 16px;
-            margin-top: 20px;
-            font-weight: bold;
-            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards 1.2s;
         }
     </style>
 </head>
-<body onload="showContent()">
-    
+<body>
+
     <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        Loading your result...
-        <div class="loader"></div>
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <p>Loading Results...</p>
     </div>
 
-    <!-- Main Content (Initially Hidden) -->
-    <div id="mainContent" class="content">
-        <a href="https://wa.me/9825537505" class="whatsapp-link" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-            Say Congrats on WhatsApp!
-        </a>
+    <h1>My Exam Results</h1>
 
-        <h1>My Exam Results</h1>
+    <div class="container">
+        <table class="result-table">
+            <tr style="--delay: 1;"><th>Subject</th><th>Marks</th></tr>
+            <tr style="--delay: 2;"><td>Standard Maths</td><td>90</td></tr>
+            <tr style="--delay: 3;"><td>Gujarati</td><td>85</td></tr>
+            <tr style="--delay: 4;"><td>English</td><td>88</td></tr>
+            <tr style="--delay: 5;"><td>Sanskrit</td><td>92</td></tr>
+            <tr style="--delay: 6;"><td>Science</td><td>89</td></tr>
+            <tr style="--delay: 7;"><td>Social Science</td><td>87</td></tr>
+            <tr style="--delay: 8;"><th>Total Marks</th><th>531</th></tr>
+        </table>
 
-        <div class="container">
-            <table class="result-table">
-                <tr><th>Subject</th><th>Marks</th></tr>
-                <tr><td>Standard Maths</td><td>90</td></tr>
-                <tr><td>Gujarati</td><td>85</td></tr>
-                <tr><td>English</td><td>88</td></tr>
-                <tr><td>Sanskrit</td><td>92</td></tr>
-                <tr><td>Science</td><td>89</td></tr>
-                <tr><td>Social Science</td><td>87</td></tr>
-                <tr><th>Total Marks</th><th>531</th></tr>
-            </table>
-
-            <div class="summary">
-                <div>Total Percentage: <span>88.5%</span></div>
-                <div>Total Percentile: <span>97.0</span></div>
-            </div>
-
-            <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
-            <a href="index.html" class="button">Back to Home</a>
+        <div class="summary">
+            <div>Total Percentage: <span>88.5%</span></div>
+            <div>Total Percentile: <span>97.0</span></div>
         </div>
 
-        <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
+        <!-- Congratulations Button -->
+        <button class="button" onclick="sendWhatsAppMessage()">Say Congratulations to Divy🔥</button>
+        <a href="index.html" class="button">Back to Home</a>
     </div>
 
+    <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
+
     <script>
-        function showContent() {
+        function sendWhatsAppMessage() {
+            let message = encodeURIComponent("Congratulations Divy🔥!");
+            let whatsappLink = `https://wa.me/9825537505?text=${message}`;
+            window.open(whatsappLink, "_blank");
+        }
+
+        // Show animations only after loading screen disappears
+        window.onload = function() {
             setTimeout(() => {
-                document.getElementById('loadingScreen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById("loading-screen").classList.add("hidden");
+                
+                // Start animations
+                document.body.classList.add("fade-in");
+                document.querySelector(".container").classList.add("slide-up");
+                document.querySelector(".summary").classList.add("fade-in-summary");
+                document.querySelector(".seat-number").classList.add("fade-in-seat");
 
-                    // Start animations after loading screen disappears
-                    document.getElementById('mainContent').style.opacity = '1';
-                    document.getElementById('mainContent').style.animation = 'fadeIn 1s ease-in-out';
-                    
-                    document.querySelector('.container').style.animation = 'slideUp 1s ease-out';
+                // Animate table rows
+                let tableRows = document.querySelectorAll(".result-table tr");
+                tableRows.forEach((row, index) => {
+                    setTimeout(() => {
+                        row.classList.add("fade-in-table");
+                    }, index * 200);
+                });
 
-                    document.querySelectorAll('.result-table th, .result-table td, .button, .summary, .seat-number, .whatsapp-link').forEach((element, index) => {
-                        setTimeout(() => {
-                            element.style.opacity = '1';
-                            element.style.animation = 'fadeIn 1s ease-in-out';
-                        }, 300 * index);
-                    });
-
-                }, 500);
-            }, 2000);
-        }
-
-        function congratulate() {
-            alert("Congratulations Divy🔥! 🎉");
-        }
+            }, 2000); // Keep loading screen for 2 seconds
+        };
     </script>
 
 </body>
