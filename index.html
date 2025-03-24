@@ -3,47 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Results</title>
+    <title>Welcome to My Result</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            padding: 50px;
-            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
             color: white;
-            animation: fadeIn 1.5s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
         h1 {
             font-size: 2.5em;
-            animation: slideDown 1.5s ease-in-out;
+            margin-bottom: 10px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .quote-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            animation: slideUp 1.5s ease-in-out;
         }
         .button {
-            padding: 15px 30px;
-            font-size: 20px;
-            background: #FFC107;
-            color: black;
+            padding: 12px 20px;
+            font-size: 18px;
+            background: #FF9800;
+            color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 25px;
             display: inline-block;
             margin-top: 20px;
             transition: transform 0.3s ease-in-out, background 0.3s;
+            animation: fadeIn 2s ease-in-out;
         }
         .button:hover {
             transform: scale(1.1);
-            background: #FFD700;
+            background: #FFC107;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
 <body>
+
     <h1>Welcome to My Exam Result</h1>
+
+    <div class="quote-box">"Success is not final, failure is not fatal: it is the courage to continue that counts."</div>
+    <div class="quote-box">"Your hard work has paid off. Be proud of what you have achieved."</div>
+    <div class="quote-box">"Dream big, work hard, stay focused, and make it happen!"</div>
+
     <a href="result.html" class="button">View My Result</a>
+
 </body>
 </html>
