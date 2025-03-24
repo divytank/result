@@ -8,7 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background: linear-gradient(135deg, #4A90E2, #50E3C2);
+            background: url('https://source.unsplash.com/1600x900/?abstract,blur') no-repeat center center/cover;
+            backdrop-filter: blur(8px);
             color: white;
             margin: 0;
             padding: 20px;
@@ -16,121 +17,129 @@
             flex-direction: column;
             align-items: center;
         }
-        .loading-screen {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: black;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            z-index: 1000;
-            animation: fadeOut 3s forwards;
+
+        /* Skeleton Loader */
+        .skeleton {
+            display: inline-block;
+            height: 20px;
+            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 5px;
         }
-        .spinner {
-            border: 6px solid rgba(255, 255, 255, 0.3);
-            border-top: 6px solid white;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin-left: 10px;
+        .skeleton-text { width: 150px; height: 20px; margin: 10px auto; }
+        .skeleton-box { width: 250px; height: 20px; margin: 10px auto; }
+        .skeleton-table { width: 90%; height: 150px; margin: 10px auto; }
+
+        @keyframes skeleton-loading {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .content {
-            display: none;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .show {
-            display: block;
-            opacity: 1;
-        }
+
+        /* Result Container */
         .container {
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             width: 90%;
             max-width: 700px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
+            transition: opacity 1s ease-in-out;
         }
-        .result-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        .result-table th, .result-table td {
-            border: 1px solid white;
-            padding: 10px;
-            font-size: 18px;
-        }
-        .summary {
-            margin-top: 20px;
+
+        /* WhatsApp Link */
+        .whatsapp-link {
             display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 700px;
-            padding: 10px;
+            align-items: center;
+            gap: 10px;
             font-size: 18px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
+            text-decoration: none;
+            color: #25D366;
+            margin-bottom: 15px;
             font-weight: bold;
+        }
+        .whatsapp-link img {
+            width: 30px;
+            height: 30px;
+        }
+
+        /* Button */
+        .button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background: #FF9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            transition: transform 0.3s ease-in-out, background 0.3s;
+        }
+        .button:hover {
+            transform: scale(1.1);
+            background: #FFC107;
         }
     </style>
 </head>
-<body onload="showContent()">
-    <div class="loading-screen">
-        Loading Results... <div class="spinner"></div>
+<body onload="loadResults()">
+
+    <a href="https://wa.me/9825537505" class="whatsapp-link" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        Say Congrats on WhatsApp!
+    </a>
+
+    <h1>My Exam Results</h1>
+
+    <!-- Skeleton Loader -->
+    <div id="skeleton">
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-box"></div>
+        <div class="skeleton skeleton-table"></div>
     </div>
 
-    <div class="content">
-        <h1>My Exam Results</h1>
+    <!-- Result Content -->
+    <div class="container" id="result">
+        <p>Your hard work has paid off. Be proud of what you have achieved.</p>
+        <table class="result-table">
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+            </tr>
+            <tr><td>Standard Maths</td><td>90</td></tr>
+            <tr><td>Gujarati</td><td>85</td></tr>
+            <tr><td>English</td><td>88</td></tr>
+            <tr><td>Sanskrit</td><td>92</td></tr>
+            <tr><td>Science</td><td>89</td></tr>
+            <tr><td>Social Science</td><td>87</td></tr>
+            <tr><th>Total Marks</th><th>531</th></tr>
+        </table>
 
-        <div class="container">
-            <table class="result-table">
-                <tr>
-                    <th>Subject</th>
-                    <th>Marks</th>
-                </tr>
-                <tr><td>Standard Maths</td><td>90</td></tr>
-                <tr><td>Gujarati</td><td>85</td></tr>
-                <tr><td>English</td><td>88</td></tr>
-                <tr><td>Sanskrit</td><td>92</td></tr>
-                <tr><td>Science</td><td>89</td></tr>
-                <tr><td>Social Science</td><td>87</td></tr>
-                <tr><th>Total Marks</th><th>531</th></tr>
-            </table>
-
-            <div class="summary">
-                <div>Total Percentage: <span>88.5%</span></div>
-                <div>Total Percentile: <span>97.0</span></div>
-            </div>
+        <div class="summary">
+            <div>Total Percentage: <span>88.5%</span></div>
+            <div>Total Percentile: <span>97.0</span></div>
         </div>
 
-        <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
+        <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
     </div>
 
+    <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
+
     <script>
-        function showContent() {
+        function loadResults() {
             setTimeout(() => {
-                document.querySelector(".content").classList.add("show");
+                document.getElementById("skeleton").style.display = "none";
+                document.getElementById("result").style.display = "flex";
             }, 3000);
         }
+        function congratulate() {
+            alert("Congratulations Divy🔥! 🎉");
+        }
     </script>
+
 </body>
 </html>
