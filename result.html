@@ -8,18 +8,50 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh; /* No scrolling */
             margin: 0;
+            padding: 20px;
         }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid white;
+            padding: 10px;
+            font-size: 18px;
+        }
+        .button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background: #FF9800;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 15px;
+            transition: transform 0.3s ease-in-out, background 0.3s;
+        }
+        .button:hover {
+            transform: scale(1.1);
+            background: #FFC107;
         }
         .whatsapp-link {
             display: flex;
@@ -35,33 +67,10 @@
             width: 30px;
             height: 30px;
         }
-        .result-image {
-            width: 90%;
-            max-width: 400px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: scale(0.8);
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-        }
-        .show {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .button {
-            padding: 12px 25px;
-            font-size: 18px;
-            background: #ff4b5c;
-            color: white;
-            text-decoration: none;
-            border-radius: 25px; /* Rounded button */
-            display: inline-block;
-            margin-top: 15px;
-            transition: transform 0.3s ease-in-out, background 0.3s;
-        }
-        .button:hover {
-            transform: scale(1.1);
-            background: #ff616f;
+        .seat-number {
+            font-size: 16px;
+            margin-top: 20px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -73,19 +82,28 @@
 
     <h1>My Exam Results</h1>
 
-    <button onclick="showImage()" class="button">Click to Reveal My Result</button>
+    <div class="container">
+        <table class="result-table">
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+            </tr>
+            <tr><td>Standard Maths</td><td>90</td></tr>
+            <tr><td>Gujarati</td><td>85</td></tr>
+            <tr><td>English</td><td>88</td></tr>
+            <tr><td>Sanskrit</td><td>92</td></tr>
+            <tr><td>Science</td><td>89</td></tr>
+            <tr><td>Social Science</td><td>87</td></tr>
+            <tr><th>Total Marks</th><th>531</th></tr>
+        </table>
 
-    <!-- Updated Image URL -->
-    <img id="resultImage" class="result-image" src="https://i.ibb.co/qMtqcZqG/Screenshot-2025-03-22-23-19-04-324-com-instagram-android.jpg" alt="Exam Result">
+        <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
+        <a href="index.html" class="button">Back to Home</a>
+    </div>
 
-    <a href="index.html" class="button">Back to Home</a>
-    <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
+    <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
 
     <script>
-        function showImage() {
-            document.getElementById('resultImage').classList.add('show');
-        }
-
         function congratulate() {
             alert("Congratulations Divy🔥! 🎉");
         }
