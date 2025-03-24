@@ -8,67 +8,36 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background: url('https://source.unsplash.com/1600x900/?abstract,blur') no-repeat center center/cover;
-            backdrop-filter: blur(8px);
+            background: linear-gradient(135deg, #4A90E2, #50E3C2);
             color: white;
-            margin: 0;
-            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin: 0;
+            padding: 20px;
         }
-
-        /* Skeleton Loader */
-        .skeleton {
-            display: inline-block;
-            height: 20px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
-            background-size: 200% 100%;
-            animation: skeleton-loading 1.5s infinite;
-            border-radius: 5px;
-        }
-        .skeleton-text { width: 150px; height: 20px; margin: 10px auto; }
-        .skeleton-box { width: 250px; height: 20px; margin: 10px auto; }
-        .skeleton-table { width: 90%; height: 150px; margin: 10px auto; }
-
-        @keyframes skeleton-loading {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-
-        /* Result Container */
         .container {
-            display: none;
+            display: flex;
             flex-direction: column;
             align-items: center;
             width: 90%;
             max-width: 700px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
-            transition: opacity 1s ease-in-out;
         }
-
-        /* WhatsApp Link */
-        .whatsapp-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid white;
+            padding: 10px;
             font-size: 18px;
-            text-decoration: none;
-            color: #25D366;
-            margin-bottom: 15px;
-            font-weight: bold;
         }
-        .whatsapp-link img {
-            width: 30px;
-            height: 30px;
-        }
-
-        /* Button */
         .button {
             padding: 12px 20px;
             font-size: 16px;
@@ -84,10 +53,40 @@
             transform: scale(1.1);
             background: #FFC107;
         }
+        .whatsapp-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: #25D366;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .whatsapp-link img {
+            width: 30px;
+            height: 30px;
+        }
+        .seat-number {
+            font-size: 16px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .summary {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 700px;
+            padding: 10px;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-weight: bold;
+        }
     </style>
 </head>
-<body onload="loadResults()">
-
+<body>
     <a href="https://wa.me/9825537505" class="whatsapp-link" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
         Say Congrats on WhatsApp!
@@ -95,16 +94,7 @@
 
     <h1>My Exam Results</h1>
 
-    <!-- Skeleton Loader -->
-    <div id="skeleton">
-        <div class="skeleton skeleton-text"></div>
-        <div class="skeleton skeleton-box"></div>
-        <div class="skeleton skeleton-table"></div>
-    </div>
-
-    <!-- Result Content -->
-    <div class="container" id="result">
-        <p>Your hard work has paid off. Be proud of what you have achieved.</p>
+    <div class="container">
         <table class="result-table">
             <tr>
                 <th>Subject</th>
@@ -125,21 +115,15 @@
         </div>
 
         <button class="button" onclick="congratulate()">Say Congratulations to Divy🔥</button>
+        <a href="index.html" class="button">Back to Home</a>
     </div>
 
     <div class="seat-number">If you want to check the result on the website, my seat no is C6222180.</div>
 
     <script>
-        function loadResults() {
-            setTimeout(() => {
-                document.getElementById("skeleton").style.display = "none";
-                document.getElementById("result").style.display = "flex";
-            }, 3000);
-        }
         function congratulate() {
             alert("Congratulations Divy🔥! 🎉");
         }
     </script>
-
 </body>
 </html>
